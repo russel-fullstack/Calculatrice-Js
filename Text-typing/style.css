@@ -1,0 +1,35 @@
+h3{
+    font-size: 3rem;
+    text-align: center;
+    padding-right: 10px;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    text-align: center;
+}
+#target{
+    position: relative;
+}
+#target::after{
+    content: "";
+    position: absolute;
+    top: 30%;
+    right: 0;
+    height: 35px;
+    width: 5px;
+    background-color: black;
+    transform: translateY(-4px);
+    animation: anim 1s  linear infinite;
+}
+
+@keyframes anim{
+    0%{
+        opacity: 0.1;
+    }
+    100%{
+        opacity: 1;
+    }
+}

@@ -125,3 +125,7 @@ setTimeout(() => {
 //   clearInterval(interval);
 // });
 // window.history.back();
+
+//méthodes string
+// indexOf eval() =
+
