@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+:root {
+    /* Couleurs principales */
+    --primary: turquoise;
+    /* Un beau violet Indigo */
+    --primary-hover: #008080;
+    /* Version plus foncée pour le survol */
+
+    /* Couleurs de fond et de texte */
+    --bg-body: #f3f4f6;
+    /* Gris très clair pour le fond de page */
+    --bg-card: #ffffff;
+    /* Blanc pur pour la carte de l'app */
+    --text-main: #1f2937;
+    /* Gris très foncé (presque noir) pour le texte */
+    --text-muted: #6b7280;
+    /* Gris moyen pour les sous-titres */
+    --border: #e5e7eb;
+    /* Gris clair pour les bordures */
+
+    /* Couleurs d'état */
+    --success: #10b981;
+    /* Vert émeraude */
+    --danger: #ef4444;
+    /* Rouge vif */
+    --warning: #f59e0b;
+    /* Orange ambré */
+
+    /* Effets (Ombres et Arrondis) */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 12px;
+    /* Arrondi standard pour nos éléments */
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Merriweather', serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    background: var(--bg-card);
+    /* Blanc */
+    padding: 2rem;
+    /* Espace intérieur aéré */
+    border-radius: var(--radius);
+    /* Coins arrondis (12px) */
+    box-shadow: var(--shadow-md);
+    /* Belle ombre portée pour le relief */
+}
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    /* Espace sous le header */
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    /* Resserre légèrement les lettres pour un look moderne */
+}
+
+/* Le mot "Pro" en couleur */
+.accent {
+    color: var(--primary);
+    /* Notre violet */
+}
+
+.subtitle {
+    color: var(--text-muted);
+    /* Gris plus clair */
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+/* Stats Cards */
+.stats-container {
+    display: grid;
+    /* Crée 3 colonnes de largeur égale (1 fraction chacune) */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    /* Espace entre les cartes */
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: #f9fafb;
+    /* Fond très léger */
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: transform 0.2s;
+    /* Pour l'animation au survol */
+}
+
+/* Petit effet de "saut" au survol de la souris */
+.stat-card:hover {
+    transform: translateY(-2px);
+    /* Monte de 2 pixels */
+    border-color: var(--primary);
+    /* La bordure devient violette */
+}
+
+.stat-value {
+    display: block;
+    /* Force le retour à la ligne */
+    font-size: 1.5rem;
+    /* Gros chiffres */
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    /* Petit texte */
+    color: var(--text-muted);
+    text-transform: uppercase;
+    /* TOUT EN MAJUSCULES */
+    letter-spacing: 0.5px;
+}
+/* Formulaire */
+.task-form {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+/* Le champ texte prend toute la place disponible restante */
+.input-group {
+    flex: 1;
+}
+
+/* Style commun pour les Inputs et Selects */
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+/* Effet de focus (quand on clique dedans) */
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    /* Enlève le contour bleu moche par défaut */
+    border-color: var(--primary);
+    /* Bordure violette */
+    /* Petite lueur violette autour */
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+
+    /* Pour aligner l'icône et le texte */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    /* Devient plus foncé au survol */
+}
+/* Filtres */
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    /* Permet le scroll horizontal sur mobile si ça dépasse */
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    /* Bords très ronds (forme pilule) */
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    /* Le texte ne passe pas à la ligne */
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background: #f3f4f6;
+    color: var(--text-main);
+}
+
+/* Style pour le bouton actif (sélectionné) */
+.filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
