@@ -38,7 +38,7 @@ window.addEventListener("mouseup", () => {
 questionContainer.addEventListener("mouseenter", () => {
   questionContainer.style.background = "rgba(0, 0, 0, 0.6)";
 });
-questionContainer.addEventListener("mouseout", () => {
+questionContainer.addEventListener("mouseleave", () => {
   questionContainer.style.background = "pink";
 });
 
@@ -128,4 +128,10 @@ setTimeout(() => {
 
 //méthodes string
 // indexOf eval() =
+
+//methodes array
+// forEach, map, filter, reduce, find, sort
+//shift() pour enlever le premier élément d'un array
+//pop() pour enlever le dernier élément d'un array
+
 

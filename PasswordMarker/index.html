@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <div class="app">
+
+        <div class="input-generate">
+            <input type="text" id="generatedPassword"  value="Générateur de MDP" readonly>
+        </div>
+      <div class="position">
+        <div class="input-range">
+            <input type="range" name="password-length" id="passwordLength" min="4" max="24" value="8" oninput="document.getElementById ('length-value').value = this.value">
+            <input type="text" name="" id="length-value" value="8" readonly>
+        </div>
+    </div>
+        <div class="checkbox">
+            <input type="checkbox" name="include-uppercase" id="uppercase">
+            <label for="uppercase">A-Z</label>
+
+            <input type="checkbox" name="include-lowercase" id="lowercase">
+            <label for="lowercase">a-z</label>
+
+            <input type="checkbox" name="include-numbers" id="numbers">
+            <label for="numbers">0-9</label>
+            
+            <input type="checkbox" name="include-special-chars" id="symbols">
+            <label for="symbols">!-?</label>
+        </div>
+
+        <button id="generateButton">Générer Mot de Passe</button>
+    </div>
+
+<script src="./script.js"></script>
+</body>
+</html>

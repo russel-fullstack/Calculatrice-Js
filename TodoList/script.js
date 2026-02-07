@@ -36,40 +36,50 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Application lancée!");
 });
 
-
 form.addEventListener("submit", (event) => {
-  event.preventDefault();   
-    const titre = document.getElementById("task-title").value.trim();   
-    const priorite = document.getElementById("task-priority").value;
+  event.preventDefault();
+  const titre = document.getElementById("task-title").value.trim();
+  const priorite = document.getElementById("task-priority").value;
 
-    if (titre.trim()) {
-        app.ajouterTache(titre, priorite);
-    } else {
-        alert("Veuillez entrer un titre de tâche valide.");
-    }
+  if (titre.trim()) {
+    app.ajouterTache(titre, priorite);
+  } else {
+    alert("Veuillez entrer un titre de tâche valide.");
+  }
 
-    afficherTaches();
+  afficherTaches();
 
-    form.reset(); // on réinitialise le formulaire après l'ajout
+  form.reset(); // on réinitialise le formulaire après l'ajout
 });
 
 //fonction pour afficher les tâches
 function afficherTaches() {
   listElement.innerHTML = ""; // on vide la liste avant de la remplir
-    app.taches.forEach((tache) => {
-      const li = document.createElement("li");
-        li.textContent = `${tache.titre}` ;
+  app.taches.forEach((tache) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+        <div>
+            <input type="checkbox" ${tache.terminee ? "checked" : ""} 
+            onchange="toggleTache(${tache.id})"
+            class="task-checkbox">
+        </div>
+
+        <div class="task-content">
+          <div class="task-title">
+              ${escapeHTML(tache.titre)}
+          </div>
+          <div class="task-meta">
+              <span class="badge badge-${tache.priorite}">${escapeHTML(tache.priorite)}</span>
+              <span>Créée le ${escapeHTML(tache.dateCreation)}</span>
+          </div>
+        </div>`;
+    li.className = `task-item ${tache.terminee ? "completed" : ""}`;
     listElement.appendChild(li);
-    });
-  }
-
-
-
-
-
+  });
+}
 //sécurité: on empêche l'injection de code malveillant
 function escapeHTML(text) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }

@@ -225,3 +225,126 @@ select:focus {
     border-color: var(--primary);
     color: white;
 }
+
+/* Liste des tâches */
+.task-list {
+    list-style: none;
+    /* Enlève les puces (points noirs) */
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    /* Aligne verticalement checkbox, texte, bouton */
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.2s;
+
+    /* Animation d'entrée */
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Style spécifique pour une tâche terminée */
+.task-item.completed {
+    background: #f9fafb;
+    /* Grise l'item */
+    border-color: transparent;
+}
+
+.task-item.completed .task-title {
+    text-decoration: line-through;
+    /* Barre le texte */
+    color: var(--text-muted);
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--success);
+    /* Checkbox verte quand cochée ! */
+    margin-right: 1rem;
+}
+
+.task-content {
+    flex: 1;
+    /* Prend toute la place disponible */
+}
+
+.task-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.task-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Badges de priorité */
+.badge {
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Couleurs spécifiques par priorité */
+.badge-haute {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Rouge */
+.badge-normale {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+/* Indigo */
+.badge-basse {
+    background: #d1fae5;
+    color: #047857;
+}
+
+/* Vert */
+
+/* Bouton Supprimer (poubelle) */
+.btn-delete {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: #fee2e2;
+    /* Fond rouge pâle */
+    color: var(--danger);
+    /* Icône rouge */
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+        /* Arrive d'un peu plus bas */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
