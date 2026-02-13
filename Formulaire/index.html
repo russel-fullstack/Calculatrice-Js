@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <form action="" class="form-container">
+        <h2>Inscription</h2>
+        <div class="pseudo-container">
+            <label for="name">Nom:</label>
+            <input type="text" id="name" name="name" autocomplete="off">
+            <span></span>
+        </div>
+        <div class="email-container">
+              <label for="email">Email:</label>
+            <input type="text" id="email" name="email" autocomplete="off">
+            <span class="error display">Votre email n'est pas valide</span>
+        </div>
+        <div class="password-container">
+            <label for="password">Mot de passe:</label>
+            <input type="password" id="password" name="password" autocomplete="off" >
+            <p class="progress-bar"></p>
+            <span class="error display">le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial</span>
+        </div>
+        <div class="confirm-container">
+            <label for="confirm-password">Confirmer le mot de passe:</label>
+            <input type="password" id="confirm-password" name="confirm-password" autocomplete="off">
+            <span class="error display">les mots de passe ne correspondent pas</span>
+        </div>
+       <div class="submit-container">
+            <button type="submit">S'inscrire</button>
+        </div>
+        
+    </form>
+    <script src="./index.js"></script>
+</body>
+</html>
