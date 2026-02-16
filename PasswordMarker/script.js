@@ -23,7 +23,7 @@ generateButton.addEventListener("click", () => {
  
   generatedPassword.value = password;
   generatedPassword.select();
-  document.execCommand("copy");
+  navigator.clipboard.writeText(generatedPassword.value);
 
   generateButton.textContent = "Copié!"
 
