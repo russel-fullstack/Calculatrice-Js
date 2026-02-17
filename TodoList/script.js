@@ -15,8 +15,57 @@ class GestionnaireTaches {
     this.taches = [...this.taches, nouvelleTache];
     console.log("tâche ajoutée :", nouvelleTache);
   }
-}
+//Méthode pour basculer l'état d'une tâche (terminée ou non)
+  toggleTache(id) {
+    // On parcourt le tableau des tâches et on modifie celle qui correspond à l'ID
+    this.taches = this.taches.map((tache) => {
+      if (tache.id === id) {
+        // On retourne une nouvelle tâche avec le champ "terminee" inversé
+        //{ ...tache } crée une copie de l'objet tache, et ensuite on écrase le champ "terminee" avec sa valeur inversée
+        return { ...tache, terminee: !tache.terminee };
+      }
+      return tache; //Sinon retour  les autres tâches  telles quelles
+    });
+  }
 
+  supprimerTache(id){
+    this.taches = this.taches.filter((tache) => tache.id !== id)
+   }
+       // Obtenir les statistiques avec reduce()
+    getStatistiques() {
+        return this.taches.reduce(
+            (stats, tache) => {
+                // Pour chaque tâche...
+                stats.total++; // On incrémente le total
+
+                if (tache.terminee) {
+                    stats.terminees++;
+                } else {
+                    stats.actives++;
+                }
+
+                return stats; // On retourne l'accumulateur pour la prochaine boucle
+            },
+            // Valeurs initiales de l'accumulateur
+            { total: 0, actives: 0, terminees: 0 }
+        );
+    }
+    // Filtrer selon critères
+    filtrerTaches(filtre) {
+        switch (filtre) {
+            case 'actives':
+                return this.taches.filter((t) => !t.terminee);
+            case 'terminees':
+                return this.taches.filter((t) => t.terminee);
+            case 'haute':
+                return this.taches.filter((t) => t.priorite === 'haute');
+            default:
+                // 'toutes' ou autre
+                return this.taches;
+        }
+    }
+
+}
 const app = new GestionnaireTaches();
 
 const form = document.getElementById("task-form");
@@ -36,21 +85,21 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Application lancée!");
 });
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const titre = document.getElementById("task-title").value.trim();
-  const priorite = document.getElementById("task-priority").value;
+//fonctions globales 
+function supprimerTache(id) {
+  app.supprimerTache(id);
+  afficherTaches()
+}
+// Mise à jour des statistiques
+function majStats() {
+    const stats = app.getStatistiques();
 
-  if (titre.trim()) {
-    app.ajouterTache(titre, priorite);
-  } else {
-    alert("Veuillez entrer un titre de tâche valide.");
-  }
+    // On met à jour le texte des éléments <span>
+    statsElements.total.textContent = stats.total;
+    statsElements.active.textContent = stats.actives;
+    statsElements.terminees.textContent = stats.terminees;
+}
 
-  afficherTaches();
-
-  form.reset(); // on réinitialise le formulaire après l'ajout
-});
 
 //fonction pour afficher les tâches
 function afficherTaches() {
@@ -58,28 +107,76 @@ function afficherTaches() {
   app.taches.forEach((tache) => {
     const li = document.createElement("li");
     li.innerHTML = `
-        <div>
-            <input type="checkbox" ${tache.terminee ? "checked" : ""} 
+    <div>
+    <input type="checkbox" ${tache.terminee ? "checked" : ""} 
             onchange="toggleTache(${tache.id})"
             class="task-checkbox">
-        </div>
+            </div>
 
-        <div class="task-content">
-          <div class="task-title">
+            <div class="task-content">
+            <div class="task-title">
               ${escapeHTML(tache.titre)}
           </div>
           <div class="task-meta">
               <span class="badge badge-${tache.priorite}">${escapeHTML(tache.priorite)}</span>
               <span>Créée le ${escapeHTML(tache.dateCreation)}</span>
           </div>
-        </div>`;
-    li.className = `task-item ${tache.terminee ? "completed" : ""}`;
-    listElement.appendChild(li);
-  });
-}
-//sécurité: on empêche l'injection de code malveillant
-function escapeHTML(text) {
+          </div>
+          <button class="btn-delete"  onclick="supprimerTache(${tache.id})" title="Supprimer">
+          <!-- Icône poubelle SVG -->
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          </button>`;
+          li.className = `task-item ${tache.terminee ? "completed" : ""}`;
+          listElement.appendChild(li);
+        });
+         const tachesAffichees = app.filtrerTaches(filtre);
+
+    // Petit bonus UX : Message si vide
+    if (tachesAffichees.length === 0) {
+        listElement.innerHTML = '<li style="text-align:center; color:#9ca3af; padding: 1rem;">Aucune tâche trouvée</li>';
+        return;
+    }
+
+    tachesAffichees.forEach((tache) => {
+        // ... (le reste du code de création de <li> reste identique)
+    });
+      }
+      
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const titre = document.getElementById("task-title").value.trim();
+        const priorite = document.getElementById("task-priority").value;
+      
+        if (titre.trim()) {
+          app.ajouterTache(titre, priorite);
+        } else {
+          alert("Veuillez entrer un titre de tâche valide.");
+        }
+      
+        afficherTaches();
+      
+        form.reset(); // on réinitialise le formulaire après l'ajout
+      });
+      //sécurité: on empêche l'injection de code malveillant
+      function escapeHTML(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
+window.supprimerTache = (id) => {
+    if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
+        app.supprimerTache(id);
+        afficherTaches();
+        // (Stats à mettre à jour bientôt)
+    }
+};
+// Fonctions globales pour les événements onclick dans le HTML
+
+window.toggleTache = (id) => {
+    app.toggleTache(id);
+    afficherTaches();
+    majStats(); // <--- AJOUTER CECI
+};
+
